@@ -1,8 +1,6 @@
 # web_server [原名称：bb HTTP server](https://github.com/135356/bb-HTTP-server)
 跨平台网站服务器mvc框架
 > 发布区 [Releases](https://github.com/135356/web_server/releases) 有已经编译好的二进制文件
-### 视频演示(旧版本bb HTTP server3.0.1)
-> [bilibili.com/video/BV1wS4y1t7gH](https://www.bilibili.com/video/BV1wS4y1t7gH?share_source=copy_web&vd_source=238df0657244861dbcd6cf34d4a3b4da)
 
 ### mode层 文件夹位置
 > ./include/mode
@@ -10,7 +8,34 @@
 > ./build/html/
 ### controller层 文件夹位置
 > ./include/controller  
-> 需要将controller文件夹下的文件引入到 Route.hpp 然后在 Route.hpp 的构造函数里面申明
+>> 需要将 controller 文件夹下的文件引入到 Route.hpp，然后在 Route.hpp 的构造函数里面实例化controller对象
+
+创建 controller 示例（./controller/Test.hpp）:
+```C++
+struct Test{
+    //在构造函数里面创建浏览路径
+    Test(std::map<std::string, void (*)(unsigned &,std::map<std::string,std::string> &,std::string &,size_t &)> &route){
+        //该路径的访问方式：http://网站/testURL
+        route["/testURL"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+            //s_data是要返回给客户端的字符串数据，1024是预设字符串长度
+            s_data.resize(1024);
+            //这里的结构类似于 s_data = "aabbcc字符串"
+            s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", 0, "登出成功");
+            s_data.resize(s_size);
+        };
+    }
+};
+```
+然后在 Route 构造函数里面完成实例化，示例（include/Route.hpp）:
+```C++
+#include "controller/test.hpp"
+class Route{
+    Route(){
+        //在Route的构造函数里面实例化后，控制器就生效了
+        test aaa(route);
+    };
+};
+```
 
 ### 可执行文件位置：./build/web_server_run
 > 运行项目./build/web_server_run start&  

@@ -1,63 +1,46 @@
 // 用户注册/登陆的mysql数据库mode
-// Created by 邦邦 on 2022/7/5.
-#ifndef BB_BBBASICS_USER_H
-#define BB_BBBASICS_USER_H
-#include "mysql_orm/sql/dql.h"
+// 2023 LongBang
+#pragma once
+#include "mysqlorm/sql/mode.h"
 
-class bbBasics_user:public bb::dql{
+class bbBasics_user:public mode{
     bbBasics_user(){
-        if(run_() != 0){
+        //字段名称，如：名称、年龄、性别，按顺序依次申明
+        key_ = {
+            "grade",
+            "accounts",
+            "password"
+        };
+        //这里是初始化，初始化成功之后将根据mode的名称如(dbA1_test)，自动生成一个db_a1数据库 与 test数据表
+        if(initializationF_() != 0){
             bb::secure::Log::obj().error("mode创建的时候出现问题");
         }
-        update_();
+        updateF_();
     }
 public:
-    static bbBasics_user &obj(){
-        static bbBasics_user bb_basics_user;
-        return bb_basics_user;
+    static auto &obj(){
+        static bbBasics_user obj;
+        obj.initObj_();
+        return obj;
     }
 protected:
-    int run_(){
-        std::array<std::string,2> obj_info = getName_();
-        DB_name_ = obj_info[0];
-        table_name_ = obj_info[1];
-        if(createDB(DB_name_) == 0 && useDB(DB_name_) == 0){
-            if(isTable(table_name_) == 0){
-                if(create_() != 0){return -1;}
-            }
-            return useTable(table_name_);
-        }
-        delTable();
-        return 0;
-    }
-    int create_(){
-        return createTable(table_name_,[](auto *data){
-            data->int_("grade")->nullable_()->comment_("等级");
-            data->string_("accounts")->unique_()->comment_("帐号 要求唯一");
-            data->string_("password")->nullable_()->comment_("密码");
+    //创建表
+    int createTableF_(){
+        return createTable(table_name_,[this](auto *data){
+            data->int_(key_[0])->nullable_()->comment_("等级");
+            data->string_(key_[1])->unique_()->comment_("帐号 要求唯一");
+            data->string_(key_[2])->nullable_()->comment_("密码");
             data->dateAt_();
         });
     }
-    void update_(){
-        //delDB_("bb_basics"); //删除数据库
-        //delTable_(); //删除数据表
-    }
-    void delTable_(const std::string &db_name={},const std::string &table_name={}){
-        if(!db_name.empty()){
-            DB_name_ = db_name;
+    //更新
+    void updateF_(){
+        /* if(delTable(table_name_) != 0){
+            bb::secure::Log::obj().error(DB_name_+",数据表删除失败");
         }
-        if(!table_name.empty()){
-            table_name_ = table_name;
+        if(delDB(DB_name_) != 0){
+            bb::secure::Log::obj().error(DB_name_+",数据库删除失败");
         }
-        useDB(DB_name_);
-        delTable();
-    }
-    void delDB_(const std::string &db_name={}){
-        if(!db_name.empty()){
-            DB_name_ = db_name;
-        }
-        delDB(DB_name_);
+        bb::secure::Log::obj().info("更新完成请退出程序，并注释掉更新代码"); */
     }
 };
-
-#endif

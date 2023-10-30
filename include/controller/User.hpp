@@ -164,11 +164,12 @@ private:
         }
         bb::secure::Token::obj().rm(token);
         //mysql数据库验证
-        std::vector<std::map<std::string, std::string>> data = bbBasics_user::obj().where("accounts",accounts)->where("password",password)->get();
+        std::string data{};
+        bbBasics_user::obj().where("accounts",accounts)->where("password",password)->get(data);
         if(data.empty()){
             return -4;
         }
-        int is = bbBasics_user::obj().where("accounts",accounts)->update({{"password",new_password}});
+        int is = bbBasics_user::obj().where("accounts",accounts)->where("password",password)->update({{"password",new_password}});
         if(is < 0){
             return -41;
         }

@@ -1,65 +1,50 @@
 // 上传文件的mysql数据库mode
-// Created by 邦邦 on 2022/7/5.
-#ifndef BB_BBBASICS_UPLOADFILE_H
-#define BB_BBBASICS_UPLOADFILE_H
-#include "mysql_orm/sql/dql.h"
+// 2023 LongBang
+#pragma once
+#include "mysqlorm/sql/mode.h"
 
-class bbBasics_uploadFile:public bb::dql{
+class bbBasics_uploadFile:public mode{
     bbBasics_uploadFile(){
-        if(run_() != 0){
+        //字段名称，如：名称、年龄、性别，按顺序依次申明
+        key_ = {
+            "accounts",
+            "file_size",
+            "file_type",
+            "file_name",
+            "file_saved_name"
+        };
+        //这里是初始化，初始化成功之后将根据mode的名称如(dbA1_test)，自动生成一个db_a1数据库 与 test数据表
+        if(initializationF_() != 0){
             bb::secure::Log::obj().error("mode创建的时候出现问题");
         }
-        update_();
+        updateF_();
     }
 public:
-    static bbBasics_uploadFile &obj(){
-        static bbBasics_uploadFile bb_basics_upload_file;
-        return bb_basics_upload_file;
+    static auto &obj(){
+        static bbBasics_uploadFile obj;
+        obj.initObj_();
+        return obj;
     }
 protected:
-    int run_(){
-        std::array<std::string,2> obj_info = getName_();
-        DB_name_ = obj_info[0];
-        table_name_ = obj_info[1];
-        if(createDB(DB_name_) == 0 && useDB(DB_name_) == 0){
-            if(isTable(table_name_) == 0){
-                if(create_() != 0){return -1;}
-            }
-            return useTable(table_name_);
-        }
-        delTable();
-        return 0;
-    }
-    int create_(){
-        return createTable(table_name_,[](auto *data){
-            data->string_("accounts")->nullable_()->comment_("帐号");
-            data->string_("file_size")->nullable_()->comment_("文件大小");
-            data->string_("file_type")->nullable_()->comment_("文件类型");
-            data->string_("file_name")->nullable_()->comment_("文件名称");
-            data->string_("file_saved_name")->nullable_()->comment_("文件保存名称");
+    //创建表
+    int createTableF_(){
+        return createTable(table_name_,[this](auto *data){
+            data->string_(key_[0])->nullable_()->comment_("帐号");
+            data->string_(key_[1])->nullable_()->comment_("文件大小");
+            data->string_(key_[2])->nullable_()->comment_("文件类型");
+            data->string_(key_[3])->nullable_()->comment_("文件名称");
+            data->string_(key_[4])->nullable_()->comment_("文件保存名称");
             data->dateAt_();
         });
     }
-    void update_(){
-        //delDB_("bb_basics"); //删除数据库
-        //delTable_(); //删除数据表
-    }
-    void delTable_(const std::string &db_name={},const std::string &table_name={}){
-        if(!db_name.empty()){
-            DB_name_ = db_name;
+    //更新
+    void updateF_(){
+        /* if(delTable(table_name_) != 0){
+            bb::secure::Log::obj().error(DB_name_+",数据表删除失败");
         }
-        if(!table_name.empty()){
-            table_name_ = table_name;
+        if(delDB(DB_name_) != 0){
+            bb::secure::Log::obj().error(DB_name_+",数据库删除失败");
         }
-        useDB(DB_name_);
-        delTable();
-    }
-    void delDB_(const std::string &db_name={}){
-        if(!db_name.empty()){
-            DB_name_ = db_name;
-        }
-        delDB(DB_name_);
+        bb::secure::Log::obj().info("更新完成请退出程序，并注释掉更新代码"); */
     }
 };
-
-#endif
