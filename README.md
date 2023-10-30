@@ -43,9 +43,13 @@ class Route{
 > 默认端口为80，请确认端口没有被其它程序占用，项目运行后跟Apache一样，在浏览器地址栏输入 http://localhost/ 展示view层里面的内容
 
 ### 运行说明：
-macOS系统，直接解压缩后通过终端运行：  
-> ./build/web_server_run start
+* macOS系统：
+        直接解压缩即可
+    > 示例：
+        ./build/web_server_run start  //在 web_server的build 目录下运行项目  
 
-linux系统，解压缩后将./build/bb目录移动到/usr/local/bb：  
-> mv ./build/bb /usr/local/bb  
-> ./build/web_server_run start&
+* linux系统：
+        解压缩后得到bb.tar与web_server.tar，将bb.tar继续解压缩后移动到/usr/local/bb目录，将web_server.tar继续解压后在 web_server/build 目录下运行项目   
+    > 示例：
+        mv ./bb /usr/local/bb   //将 bb 移动 /usr/local/bb  
+        ./build/web_server_run start&   //在 web_server的build 目录下运行项目  
