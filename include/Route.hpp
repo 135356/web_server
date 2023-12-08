@@ -6,14 +6,12 @@
 #include <string>
 #include "controller/User.hpp"
 #include "controller/UploadFile.hpp"
-#include "controller/ConstructionManagement.hpp"
 
 class Route{
     Route(){
         UploadFile upload_file(route_upload);
         
         User user(route);
-        ConstructionManagement construction_management(route);
     };
     ~Route() = default;
 public:
