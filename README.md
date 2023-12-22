@@ -2,6 +2,10 @@
 跨平台网站服务器mvc框架
 > 发布区 [Releases](https://github.com/135356/web_server/releases) 有已经编译好的二进制文件
 
+### 依赖关系
+> [135356/bb](https://github.com/135356/bb) 包含线程池、tcp长链接、http协议解析、文件管理、日志系统、字符加解密  
+> [135356/mysqlorm](https://github.com/135356/mysqlorm) mysql映射
+
 ### mode层 文件夹位置
 > ./include/mode
 ### view层 文件夹位置
