@@ -32,12 +32,12 @@ protected:
         });
     }
     void updateF_(){
-        /* if(delTable(table_name_) != 0){
+        if(delTable() != 0){
             bb::secure::Log::obj().error(DB_name_+",数据表删除失败");
         }
-        if(delDB(DB_name_) != 0){
+        if(delDB() != 0){
             bb::secure::Log::obj().error(DB_name_+",数据库删除失败");
         }
-        bb::secure::Log::obj().info("更新完成请退出程序，并注释掉更新代码"); */
+        bb::secure::Log::obj().info("更新完成请退出程序，并注释掉更新代码");
     }
 };
