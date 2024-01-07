@@ -1,26 +1,19 @@
-// http协议的路由地址
-// Created by 邦邦 on 2022/6/17.
-#ifndef WEBSERVER_ROUTE_H
-#define WEBSERVER_ROUTE_H
+// 2024 LongBang
+#pragma once
 #include <map>
 #include <string>
 #include "controller/User.hpp"
-#include "controller/UploadFile.hpp"
 
 class Route{
     Route(){
-        UploadFile upload_file(route_upload);
-        
         User user(route);
     };
     ~Route() = default;
 public:
     static Route &obj(){
-        static Route bb_http_route_path;
-        return bb_http_route_path;
+        static Route obj;
+        return obj;
     }
-    //文件路由请求(客户端上传文件)
-    std::map<std::string, void (*)(std::map<std::string,std::string> &,std::string &,size_t &)> route_upload{};
     
     /*
      * r_data 接收到的数据
@@ -36,5 +29,3 @@ public:
         }},
     };
 };
-
-#endif

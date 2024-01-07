@@ -1,5 +1,5 @@
-#ifndef BB_USER_H
-#define BB_USER_H
+// 2024 LongBang
+#pragma once
 #include <map>
 #include <string>
 #include <regex>
@@ -176,5 +176,3 @@ private:
         return 0;
     }
 };
-
-#endif
