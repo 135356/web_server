@@ -4,7 +4,7 @@
 
 ### 依赖关系
 > [135356/bb](https://github.com/135356/bb) 包含线程池、tcp长链接、http协议解析、文件管理、日志系统、字符加解密  
-> [135356/mysqlorm](https://github.com/135356/mysqlorm) mysql映射
+> [135356/mysqlorm](https://github.com/135356/mysqlorm) mysql映射  
 > [gzip](https://mp.csdn.net/mp_blog/creation/editor/135407605) 将需要压缩为gz格式的文件，进行压缩
 
 ### mode层 文件夹位置
