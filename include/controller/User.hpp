@@ -9,9 +9,9 @@
 #include "mode/bbBasics_user.hpp"
 
 struct User{
-    User(std::map<std::string, void (*)(unsigned &,std::map<std::string,std::string> &,std::string &,size_t &)> &route){
+    User(std::map<std::string, void (*)(std::map<std::string,std::string> &,std::string &,size_t &,uint32_t &)> &route){
         //注册
-        route["/logon"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+        route["/logon"] = [](std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size,uint32_t &client_ip) {
             s_data.resize(1024);
             if(!FloodIP::obj().b10.pushIs(client_ip)){
                 s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", -100, "次数超过限制，稍后再试");
@@ -28,7 +28,7 @@ struct User{
             s_data.resize(s_size);
         };
         //登陆
-        route["/login"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+        route["/login"] = [](std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size,uint32_t &client_ip) {
             s_data.resize(1024);
             if(!FloodIP::obj().a10.pushIs(client_ip)){
                 s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", -100, "次数超过限制，稍后再试");
@@ -44,7 +44,7 @@ struct User{
             s_data.resize(s_size);
         };
         //token登陆
-        route["/login_token"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+        route["/login_token"] = [](std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size,uint32_t &client_ip) {
             s_data.resize(1024);
             if(!FloodIP::obj().b100.pushIs(client_ip)){
                 s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", -100, "次数超过限制，稍后再试");
@@ -58,7 +58,7 @@ struct User{
             s_data.resize(s_size);
         };
         //登出
-        route["/logout"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+        route["/logout"] = [](std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size,uint32_t &client_ip) {
             s_data.resize(1024);
             if (bb::secure::Token::obj().rm(r_data["token"])) {
                 s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", 0, "登出成功");
@@ -68,7 +68,7 @@ struct User{
             s_data.resize(s_size);
         };
         //修改密码
-        route["/change_password"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
+        route["/change_password"] = [](std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size,uint32_t &client_ip) {
             s_data.resize(1024);
             if(!FloodIP::obj().a10.pushIs(client_ip)){
                 s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", -100, "次数超过限制，稍后再试");

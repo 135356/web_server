@@ -6,9 +6,9 @@
 class bbBasics_user:public mode{
 public:
     static auto &obj(){
-        static bbBasics_user obj;
-        obj.initSqlF_();
-        return obj;
+        static bbBasics_user alias;
+        alias.initSqlF_();
+        return alias;
     }
 private:
     bbBasics_user(){

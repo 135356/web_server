@@ -3,7 +3,7 @@
 #include <string>
 #include <dirent.h>
 #include "bb/secure/Log.h"
-#include "bb/net/http/Config.hpp"
+#include "bb/net/http/HttpConfig.hpp"
 #include "zlib.h"
 
 class gzip{

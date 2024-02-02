@@ -12,8 +12,8 @@ struct FloodIP{
     bb::secure::Flood b20;
     bb::secure::Flood b100;
     static FloodIP &obj(){
-        static FloodIP bb_secure_flood_id;
-        return bb_secure_flood_id;
+        static FloodIP alias;
+        return alias;
     }
 private:
     FloodIP():a10(3600,10),a20(3600,20),b10(1800,10),b20(1800,20),b100(1800,100){}

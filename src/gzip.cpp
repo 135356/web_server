@@ -58,7 +58,7 @@ int gzip::endHtml(const std::string &file_dir){
                 int name_index = file_path.rfind(".");
                 std::string file_suffix = file_path.substr(name_index+1);
                 //如果已经存在gz文件，表示已经执行过压缩了
-                if(bb::net::http::Config::obj().content_type_[file_suffix].is_gzip){
+                if(bb::net::http::HttpConfig::obj().content_type_[file_suffix].is_gzip){
                     end(file_path.c_str());
                 }
             break;
