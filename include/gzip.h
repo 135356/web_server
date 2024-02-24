@@ -1,6 +1,7 @@
 // 2024 LongBang
 #pragma once
 #include <string>
+#include <cstring>
 #include <dirent.h>
 #include "bb/secure/Log.h"
 #include "bb/net/http/HttpConfig.hpp"
