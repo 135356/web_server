@@ -19,9 +19,6 @@ class Work{
         }
     }
     ~Work()=default;
-    void runF_(){
-        bb::net::http::Serve sevre(bb::net::http::HttpConfig::obj().serve_port,4,100,1); //服务监听
-    };
     static void stopF_(int signum){
         if(signum == SIGABRT){ //判断接收到的信号
             exit(0);
@@ -30,14 +27,14 @@ class Work{
 public:
     //测试模式
     void testF(){
-        runF_();
+        bb::net::http::Serve sevre(Route::obj().route);
     }
     //正式模式
     void formalF(){
         while(true){
             pid_t pid = fork();
             if(pid == 0){ //等于0表示子进程提供服务
-                runF_();
+                bb::net::http::Serve sevre(Route::obj().route);
             }else{
                 wait(0); //等待
             }
@@ -63,7 +60,7 @@ public:
             bb::secure::Log::obj().error("stop停止进程的时候出现错误");
         }
     }
-    static Work &obj(){
+    static auto &obj(){
         static Work alias;
         return alias;
     }

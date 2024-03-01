@@ -1,60 +1,35 @@
 # web_server [原名称：bb HTTP server](https://github.com/135356/bb-HTTP-server)
 跨平台网站服务器mvc框架
-> 发布区 [Releases](https://github.com/135356/web_server/releases) 有已经编译好的二进制文件
+> 发布区 [Releases](https://github.com/135356/web_server/releases)
 
 ### 依赖关系
-> [135356/bb](https://github.com/135356/bb) 包含线程池、tcp长链接、http协议解析、文件管理、日志系统、字符加解密  
-> [135356/mysqlorm](https://github.com/135356/mysqlorm) mysql映射
-> [gzip](https://mp.csdn.net/mp_blog/creation/editor/135407605) 将需要压缩为gz格式的文件，进行压缩
+> [135356/bb](https://github.com/135356/bb) http协议  
+> [135356/mysqlorm](https://github.com/135356/mysqlorm) mysql映射  
+> [gzip](https://mp.csdn.net/mp_blog/creation/editor/135407605) 文件压缩
 
-### mode层 文件夹位置
-> ./include/mode
-### view层 文件夹位置
-> ./build/html/
-### controller层 文件夹位置
-> ./include/controller  
->> 需要将 controller 文件夹下的文件引入到 Route.hpp，然后在 Route.hpp 的构造函数里面实例化controller对象
-
-创建 controller 示例（./controller/Test.hpp）:
-```C++
-struct Test{
-    //在构造函数里面创建浏览路径
-    Test(std::map<std::string, void (*)(unsigned &,std::map<std::string,std::string> &,std::string &,size_t &)> &route){
-        //该路径的访问方式：http://网站/testURL
-        route["/testURL"] = [](unsigned &client_ip,std::map<std::string,std::string> &r_data,std::string &s_data,size_t &s_size) {
-            //s_data是要返回给客户端的字符串数据，1024是预设字符串长度
-            s_data.resize(1024);
-            //这里的结构类似于 s_data = "aabbcc字符串"
-            s_size = sprintf(&s_data[0], R"({"state":%d,"msg":"%s"})", 0, "登出成功");
-            s_data.resize(s_size);
-        };
-    }
-};
-```
-然后在 Route 构造函数里面完成实例化，示例（include/Route.hpp）:
-```C++
-#include "controller/test.hpp"
-class Route{
-    Route(){
-        //在Route的构造函数里面实例化后，控制器就生效了
-        test aaa(route);
-    };
-};
-```
-
-### 可执行文件位置：./build/web_server_run
-> 运行项目./build/web_server_run start&  
-> 停止项目./build/web_server_run stop  
-> 默认端口为80，请确认端口没有被其它程序占用，项目运行后跟Apache一样，在浏览器地址栏输入 http://localhost/ 展示view层里面的内容
+### mode层 文件夹的位置
+> include/mode  
+> 示例文件: include/mode/dbA1_test.hpp  
+### view层 文件夹的位置
+> build/html/h5文件
+### controller层 文件夹的位置
+> include/controller  
+> 示例文件: include/controller/Test.hpp  
+### 路由文件
+> include/web_server/Route.hpp  
+> 在 Route 构造函数里面对controller实例化，如: Test test(route);
 
 ### 运行说明：
-* macOS系统：
-        直接解压缩即可
-    > 示例：
-        ./build/web_server_run start  //在 web_server的build 目录下运行项目  
-
-* linux系统：
-        解压缩后得到bb.tar与web_server.tar，将bb.tar继续解压缩后移动到/usr/local/bb目录，将web_server.tar继续解压后在 web_server/build 目录下运行项目   
-    > 示例：
-        mv ./bb /usr/local/bb   //将 bb 移动 /usr/local/bb  
-        ./build/web_server_run start&   //在 web_server的build 目录下运行项目  
+> 默认端口为80，请确认端口没有被其它程序占用，项目运行后跟Apache一样，在浏览器地址栏输入 http://127.0.0.1 即可展示view层的h5内容
+* linux系统：  
+    先把依赖程序解压安装到/usr/local/路径下，依赖项可在 [Releases](https://github.com/135356/web_server/releases)下载，分别为bb.tar 与 gzip.tar 将它们解压缩即可，如：/usr/local/bb 与 /usr/local/gzip  
+    克隆项目源码到本地，在项目路径下创建build目录，将需要展示的h5文件放到build/html目录下，进入 build目录 然后执行 cmake 操作，如:  
+    git clone https://github.com/135356/web_server.git  
+    cd web_server  
+    mkdir build  
+    cd build  
+    cmake ..  
+    make  
+    编译成功将得到 web_server_run 可执行文件  
+    运行: ./web_server_run start&  
+    停止: ./web_server_run stop
