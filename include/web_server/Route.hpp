@@ -2,12 +2,10 @@
 #pragma once
 #include <map>
 #include <string>
-#include "controller/User.hpp"
 #include "controller/Test.hpp"
 
 class Route{
     Route(){
-        User user(route);
         Test test(route);
     };
     ~Route() = default;
