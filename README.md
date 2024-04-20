@@ -2,8 +2,8 @@
 web框架，适用于用c++直接搭建网站
 > 发布区 [Releases](https://github.com/135356/web_server/releases)
 
-### 依赖
-> [135356/mysqlorm](https://github.com/135356/mysqlorm) 它负责链接mysql，有关数据库的操作都在这个项目  
+### 依赖mysqlorm
+> https://github.com/135356/mysqlorm 它负责链接mysql，有关数据库的操作都在 [135356/mysqlorm](https://github.com/135356/mysqlorm) 这个项目  
 
 ### 基本信息配置文件
 ````c++
@@ -14,7 +14,7 @@ web框架，适用于用c++直接搭建网站
     "IS_MTB_FILE": 1, 是否开启更多线程来处理大文件，1为开启0为关闭，根据负载分配更多的线程处理超过10m的文件
     "WEB_DIR": "html", h5文件放哪个位置，比如html就是项目build路径下的html
     "PORT": 80, 端口号，比如改成了8888，访问链接的时候就需要带上这个端口号，http://localhost:8888
-    "ORIGIN": "*" 白名单，*表示所有链接，如果是多个链接中间用分号;隔开即可（不要有任何不想干的符号包括空格）
+    "ORIGIN": "*" 白名单，*表示所有链接，如果是多个链接中间用分号;隔开即可（不要有任何不相关的符号包括空格）
 ````
 
 ### 日志文件
