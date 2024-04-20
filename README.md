@@ -1,5 +1,5 @@
 # web_server
-web框架，适用于用c++直接搭建网站
+web框架，适用于用c++直接搭建网站，这个项目整合了一个ccore与mysql_orm，这两个项目都是我自己开发的，ccore负责网络协议、负载之类的功能，mysql_orm负责与数据库交互。
 > 发布区 [Releases](https://github.com/135356/web_server/releases)
 
 ### 依赖mysqlorm
