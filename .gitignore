@@ -31,4 +31,7 @@
 *.out
 *.app
 .DS_Store
-build
+build/*
+!build/html/
+build/html/*.gz
+build/html/*/*.gz
