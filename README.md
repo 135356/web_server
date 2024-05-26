@@ -1,6 +1,7 @@
 # web_server
 Web服务器框架，大小仅8m，它不依赖apache与nginx，搭建非常简单，直接解压缩就可以搭建c++网站了。如果要求不高你甚至不需要了解c++就可以完成一个简单的web服务器（关键开发者就在你身边，所有功能都是我弄的，有啥问题联系我邮箱 a13535@foxmail.com）
 
+> 视频  [部署演示](https://www.bilibili.com/video/BV1RM4m167gK/)  
 > 发布区 [Releases](https://github.com/135356/web_server/releases)
 
 ### 依赖mysqlorm
