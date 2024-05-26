@@ -1,5 +1,6 @@
 # web_server
-web框架，适用于用c++直接搭建网站，这个项目整合了一个ccore与mysql_orm，这两个项目都是我自己开发的，ccore负责网络协议、负载之类的功能，mysql_orm负责与数据库交互。
+Web服务器框架，大小仅8m，它不依赖apache与nginx，搭建非常简单，直接解压缩就可以搭建c++网站了。如果要求不高你甚至不需要了解c++就可以完成一个简单的web服务器（关键开发者就在你身边，所有功能都是我弄的，有啥问题联系我邮箱 a13535@foxmail.com）
+
 > 发布区 [Releases](https://github.com/135356/web_server/releases)
 
 ### 依赖mysqlorm
@@ -37,7 +38,7 @@ web框架，适用于用c++直接搭建网站，这个项目整合了一个ccore
 
 ### 运行说明：
 > 默认端口为80，请确认端口没有被其它程序占用，项目运行后跟Apache一样，在浏览器地址栏输入 http://127.0.0.1 即可
-* linux系统：  
+* linux系统部署：  
     先下载依赖的库解压到/usr/local/路径下，分别为gzip的库、mysql的库（只是基本的库文件，至于mysql的服务器，你可以在 13535_mysqlorm.conf 文件里面配置【运行一次项目，在收到有关数据库的链接请求后，如果没有这个配置文件会自动生成】），它们被打包成了一个压缩包，可在[Releases](https://github.com/135356/web_server/releases)下载  
     解压好依赖的库文件之后，克隆该项目的源码到你本地，通过cmake编译即可运行  
 
