@@ -53,3 +53,4 @@ Web服务器框架，大小仅8m，它不依赖apache与nginx，搭建非常简�
         make   
         运行: ./web_server_run start&  
         停止: ./web_server_run stop
+* 其它系统部署：暂不支持(懒得用其他平台去编译，关键部分功能比如epoll是不通用的，改起来麻烦)
